@@ -1,20 +1,3 @@
-# import os
-# from dotenv import load_dotenv
-# from langchain_core.tools import tool
-# from tavily import TavilyClient
-# from rich import print
-
-# load_dotenv()
-
-# tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
-
-# @tool
-# def web_search(query: str) -> str:
-#     """Search the web for recent and reliable information on a topic. Returns titles, URLs and snippets."""
-#     results = tavily.search(query=query, max_results=5)
-#     return str(results)
-
-# print(web_search.invoke("what are the recent news of war?"))
 
 import os
 from dotenv import load_dotenv
