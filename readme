@@ -1,0 +1,131 @@
+Multi-Agent AI Research System
+An AI-powered research application built with Python and LangChain that coordinates specialized agents to search the web, extract information, generate a structured research report, and evaluate the report with feedback.
+Overview
+Research often involves several repetitive steps: finding relevant sources, reading web pages, organizing information, writing a report, and reviewing the result. This project explores how an agent-based workflow can coordinate those steps into one pipeline.
+
+Instead of relying on a single model call to perform the entire task, the application separates research into specialized stages and passes the results between them. A supervisor function manages the order of execution and shares state between the stages.
+Note: The description below is based on the project workflow shown in the development tutorial. Confirm the exact filenames, providers, and implemented features against your local code before publishing.
+
+Workflow
+                  Research Topic
+                        |
+                        v
+                 Research Pipeline
+                        |
+                        v
+                   Search Agent
+              (find relevant sources)
+                        |
+                        v
+                   Reader Agent
+             (extract page information)
+                        |
+                        v
+                   Writer Chain
+              (create a research report)
+                        |
+                        v
+                   Critic Chain
+            (score report and give feedback)
+                        |
+                        v
+                  Final Research
+                     Report
+The pipeline coordinates the stages and passes their outputs through a shared state. The exact behaviour depends on the implementation and configuration in the code.
+Main Components
+1. Search Agent
+Uses a web-search tool to find information relevant to the research topic.
+2. Reader Agent
+Uses a URL-scraping tool to retrieve and extract readable content from selected web pages.
+3. Writer Chain
+Uses a language model and an output parser to organize the collected research into a structured report.
+4. Critic Chain
+Reviews the generated report and returns a score and feedback. Treat this as an AI-assisted review, not a guarantee that every claim is correct.
+5. Research Pipeline
+Coordinates the components, passes results between stages using shared state, and presents the workflow output.
+Why Use a Multi-Agent Workflow?
+A multi-agent workflow can make a complex task easier to organize by giving individual stages clearly defined responsibilities. It can also make components easier to modify or evaluate independently.
+
+This approach is not automatically better than using one LLM. It may increase latency, token usage, and API costs. Its value depends on whether separating the work improves the quality, reliability, or maintainability of the result for the intended task.
+Technology Stack
+Based on the tutorial workflow, the project involves:
+- Python — application logic
+- LangChain — connecting language models, prompts, tools, and output parsers
+- LLM API — report generation and review (use the provider configured in your code)
+- Web-search tool — finding relevant pages (use the provider configured in your code)
+- Web scraping — extracting readable content from URLs
+- Environment variables — configuring API credentials
+Check requirements.txt and your Python files to confirm the exact libraries and providers used.
+Project Structure
+The following is an illustrative structure. Update it to match the files in your repository.
+Multi-agent-research-system/
+├── agents.py             # Agent and chain definitions, if present
+├── pipeline.py           # Pipeline orchestration, if present
+├── main.py               # Application entry point, if present
+├── requirements.txt      # Python dependencies
+├── .env.example          # Example configuration, if present
+├── .gitignore            # Files excluded from Git
+└── README.md             # Project documentation
+Getting Started
+Prerequisites
+- Python version supported by the project dependencies
+- Git
+- API credentials for the model provider and search service configured in the code
+1. Clone the repository
+Replace YOUR_USERNAME with the GitHub account that hosts your repository.
+git clone https://github.com/YOUR_USERNAME/Multi-agent-research-system.git
+cd Multi-agent-research-system
+If you already have the project folder, open a terminal in that folder and continue with the setup steps below; you do not need to clone it again.
+2. Create and activate a virtual environment
+On Windows:
+python -m venv .venv
+.venv\Scripts\activate
+On macOS or Linux:
+python3 -m venv .venv
+source .venv/bin/activate
+3. Install dependencies
+If the repository contains requirements.txt:
+pip install -r requirements.txt
+If it does not, install the dependencies listed in the project's setup instructions or Python imports. Do not assume a package list without checking the code.
+4. Configure API keys
+Create a local .env file if the application uses environment variables. Add the keys required by the providers in your code, using the exact variable names expected by the application.
+
+Example placeholders only:
+LLM_API_KEY=your_model_provider_api_key
+SEARCH_API_KEY=your_search_provider_api_key
+These are generic examples, not guaranteed variable names. Check the code and any .env.example file for the exact names. Never commit real API keys or other secrets to GitHub.
+5. Run the application
+Use the entry point that exists in your repository. For example, if the project uses pipeline.py directly:
+python pipeline.py
+If there is a separate main.py or UI entry point, use the command documented in your code instead. Follow the program's prompts to enter a research topic, if supported.
+Example Research Query
+Research recent developments in retrieval-augmented generation (RAG).
+Summarize key approaches, compare their advantages and limitations,
+and provide source links where available.
+The actual input format and output depend on the application's implementation.
+Security
+- Keep .env out of version control.
+- Add the following entries to .gitignore if they are relevant to your project:
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+- If a secret has already been committed, removing it from the latest version is not enough; revoke or rotate the exposed key.
+- Respect the terms of use and access restrictions of any search or scraping service.
+Limitations
+- Generated reports may contain errors or unsupported claims.
+- Search results and extracted page content depend on source availability and quality.
+- An AI critic can miss mistakes or provide incorrect feedback.
+- Multi-agent workflows can use more tokens and take longer than a single model call.
+- Review important claims against the original sources.
+Possible Future Improvements
+- Add source citations and evidence checks for factual claims.
+- Save research history and generated reports.
+- Add retries and clearer error handling for failed searches or model calls.
+- Evaluate report quality, runtime, and API cost on a fixed set of test questions.
+- Add a web interface or API endpoint if the application needs one.
+Author
+Ayush Raj
